@@ -110,9 +110,16 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Frankenstein")
 
-    def test_search_by_author(self):
+    def test_search_by_authors__first_name(self):
         # This test checks if the view can handle and correctly filter by author
         response = self.client.get(reverse("books_list"), {"author": "Darren"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Slawter")
+        self.assertContains(response, "Lord of the Shadows")
+
+    def test_search_by_author__last_name(self):
+        # This test checks if the view can handle and correctly filter by author
+        response = self.client.get(reverse("books_list"), {"author": "Shan"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Slawter")
         self.assertContains(response, "Lord of the Shadows")

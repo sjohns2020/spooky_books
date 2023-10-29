@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
     "catalogue",
     "information",
+    "api",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -69,6 +72,10 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+}
 
 WSGI_APPLICATION = "spooky_books.wsgi.application"
 
