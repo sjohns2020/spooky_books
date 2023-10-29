@@ -1,18 +1,17 @@
 {% extends 'base.html' %} {% block content %}
 
+<h2>{{ book.title }}</h2>
+<p>{{ book.publication_year }}</p>
+<p>Written by {{ book.author.first_name }} {{ book.author.last_name }}</p>
+<img src="{{book.image}}" alt="{{book.image}}" />
 <section>
-  <h2>{{ book.title }}</h2>
-  <p>{{ book.publication_year }}</p>
-  <p>Written by {{ book.author.first_name }} {{ book.author.last_name }}</p>
-  <section>
-    <form action="{% url 'books_edit' book.id %}" method="GET">
-      <button type="submit" class="button-spooky">Edit</button>
-    </form>
-    <form action="{% url 'books_delete' book.id %}" method="POST">
-      {% csrf_token %}
-      <button type="submit" class="button-spooky">Delete</button>
-    </form>
-  </section>
+  <form action="{% url 'books_edit' book.id %}" method="GET">
+    <button type="submit" class="button-spooky">Edit</button>
+  </form>
+  <form action="{% url 'books_delete' book.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="button-spooky">Delete</button>
+  </form>
 </section>
 
 {% endblock %}

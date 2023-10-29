@@ -1,92 +1,674 @@
 [
-  {
-    "model": "catalogue.Author",
-    "pk": 1,
-    "fields": {
-      "first_name": "Stephen",
-      "last_name": "King"
+    {
+        "model": "catalogue.Author",
+        "pk": 1,
+        "fields": {
+            "first_name": "Cassandra",
+            "last_name": "Clare"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 2,
+        "fields": {
+            "first_name": "Sarah",
+            "last_name": "Rees Brennan"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 3,
+        "fields": {
+            "first_name": "Maureen",
+            "last_name": "Johnson"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 4,
+        "fields": {
+            "first_name": "Robin",
+            "last_name": "Wasserman"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 1,
+        "fields": {
+            "title": "Tales from the Shadowhunter Academy",
+            "author": 1,
+            "publication_year": 2016,
+            "ISBN": "9781481443258",
+            "image": "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 5,
+        "fields": {
+            "first_name": "Laurence",
+            "last_name": "C. Bush"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 2,
+        "fields": {
+            "title": "Asian Horror Encyclopedia",
+            "author": 5,
+            "publication_year": 2001,
+            "ISBN": "9780595201815",
+            "image": "http://books.google.com/books/content?id=9_RvVRPMFeIC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 6,
+        "fields": {
+            "first_name": "Jonathan",
+            "last_name": "Rigby"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 3,
+        "fields": {
+            "title": "English Gothic",
+            "author": 6,
+            "publication_year": 2004,
+            "ISBN": "845-d0a6ed38bf0ca",
+            "image": "http://books.google.com/books/content?id=DaUqAQAAIAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 7,
+        "fields": {
+            "first_name": "Darren",
+            "last_name": "Shan"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 4,
+        "fields": {
+            "title": "Lord of the Shadows",
+            "author": 7,
+            "publication_year": 2004,
+            "ISBN": "9780007159208",
+            "image": "http://books.google.com/books/content?id=Q3fusSYGLuwC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 8,
+        "fields": {
+            "first_name": "Christopher",
+            "last_name": "Pike"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 5,
+        "fields": {
+            "title": "The Howling Ghost",
+            "author": 8,
+            "publication_year": 2014,
+            "ISBN": "9781481410533",
+            "image": "http://books.google.com/books/content?id=hlMdBAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 9,
+        "fields": {
+            "first_name": "Mary",
+            "last_name": "Wollstonecraft Shelley"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 6,
+        "fields": {
+            "title": "Frankenstein",
+            "author": 9,
+            "publication_year": 1965,
+            "ISBN": "845-95aa0d340ce60",
+            "image": "http://books.google.com/books/content?id=xFIN97PzxxYC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 10,
+        "fields": {
+            "first_name": "Stephen",
+            "last_name": "King"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 7,
+        "fields": {
+            "title": "Different Seasons",
+            "author": 10,
+            "publication_year": 1995,
+            "ISBN": "9780751514629",
+            "image": "http://books.google.com/books/content?id=qXKAQgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 11,
+        "fields": {
+            "first_name": "Shirley",
+            "last_name": "Jackson"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 8,
+        "fields": {
+            "title": "We Have Always Lived in the Castle",
+            "author": 11,
+            "publication_year": 2006,
+            "ISBN": "845-3b3d4ce942bde",
+            "image": "http://books.google.com/books/content?id=c8RlAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 12,
+        "fields": {
+            "first_name": "Paul",
+            "last_name": "Tobin"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 9,
+        "fields": {
+            "title": "Witcher Volume 3 Curse of Crows",
+            "author": 12,
+            "publication_year": 2017,
+            "ISBN": "9781506701615",
+            "image": "http://books.google.com/books/content?id=v4kmDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 10,
+        "fields": {
+            "title": "The Secret Path",
+            "author": 8,
+            "publication_year": 2014,
+            "ISBN": "9781481410496",
+            "image": "http://books.google.com/books/content?id=F1MdBAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 13,
+        "fields": {
+            "first_name": "Richard",
+            "last_name": "Bachman"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 11,
+        "fields": {
+            "title": "Thinner",
+            "author": 10,
+            "publication_year": 1985,
+            "ISBN": "9780451161345",
+            "image": "http://books.google.com/books/content?id=1YP-hfna5ewC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 14,
+        "fields": {
+            "first_name": "Steve",
+            "last_name": "Alten"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 12,
+        "fields": {
+            "title": "The Loch",
+            "author": 14,
+            "publication_year": 2006,
+            "ISBN": "9780976165927",
+            "image": "http://books.google.com/books/content?id=XfkmrSZgTK4C&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 15,
+        "fields": {
+            "first_name": "Mary",
+            "last_name": "Shelley"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 13,
+        "fields": {
+            "title": "Frankenstein",
+            "author": 15,
+            "publication_year": 1994,
+            "ISBN": "9781561563098",
+            "image": "http://books.google.com/books/content?id=4dHXkNcpIXgC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 16,
+        "fields": {
+            "first_name": "Richelle",
+            "last_name": "Mead"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 14,
+        "fields": {
+            "title": "Last Sacrifice",
+            "author": 16,
+            "publication_year": 2010,
+            "ISBN": "9780141331881",
+            "image": "http://books.google.com/books/content?id=Rwcpd5zqrrkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 17,
+        "fields": {
+            "first_name": "R.",
+            "last_name": "L. Stine"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 15,
+        "fields": {
+            "title": "Go Eat Worms!",
+            "author": 17,
+            "publication_year": 2004,
+            "ISBN": "9780439671149",
+            "image": "http://books.google.com/books/content?id=zOrwGwAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 18,
+        "fields": {
+            "first_name": "Derek",
+            "last_name": "Landy"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 16,
+        "fields": {
+            "title": "The Faceless Ones",
+            "author": 18,
+            "publication_year": 2009,
+            "ISBN": "9780007302161",
+            "image": "http://books.google.com/books/content?id=AlEpTA07FZkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 19,
+        "fields": {
+            "first_name": "Gaston",
+            "last_name": "Leroux"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 17,
+        "fields": {
+            "title": "The Phantom of the Opera",
+            "author": 19,
+            "publication_year": 1977,
+            "ISBN": "845-6f133394fd2ec",
+            "image": "http://books.google.com/books/content?id=cbFcAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 18,
+        "fields": {
+            "title": "The Green Mile",
+            "author": 10,
+            "publication_year": 2000,
+            "ISBN": "9780752834221",
+            "image": "http://books.google.com/books/content?id=1lJmPwAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 19,
+        "fields": {
+            "title": "Slawter",
+            "author": 7,
+            "publication_year": 2007,
+            "ISBN": "9780007231386",
+            "image": "http://books.google.com/books/content?id=zRCISxY0oDwC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 20,
+        "fields": {
+            "title": "Frankenstein Or the Modern Prometheus",
+            "author": 9,
+            "publication_year": 2010,
+            "ISBN": "9781907523151",
+            "image": "http://books.google.com/books/content?id=RrfEbwAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 20,
+        "fields": {
+            "first_name": "Neil",
+            "last_name": "Gaiman"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 21,
+        "fields": {
+            "title": "Unnatural Creatures",
+            "author": 20,
+            "publication_year": 2013,
+            "ISBN": "9781408845448",
+            "image": "http://books.google.com/books/content?id=qMikAwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 22,
+        "fields": {
+            "title": "Four Past Midnight",
+            "author": 10,
+            "publication_year": 1990,
+            "ISBN": "845-b31c04e4d5379",
+            "image": "http://books.google.com/books/content?id=y6cOAQAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 21,
+        "fields": {
+            "first_name": "Kōji",
+            "last_name": "Suzuki"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 22,
+        "fields": {
+            "first_name": "Glynne",
+            "last_name": "Walley"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 23,
+        "fields": {
+            "title": "Spiral",
+            "author": 21,
+            "publication_year": 2005,
+            "ISBN": "9781932234169",
+            "image": "http://books.google.com/books/content?id=eXLRAAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 23,
+        "fields": {
+            "first_name": "Howard",
+            "last_name": "Phillips Lovecraft"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 24,
+        "fields": {
+            "title": "The Dream-quest of Unknown Kadath",
+            "author": 23,
+            "publication_year": 1982,
+            "ISBN": "9780345302335",
+            "image": "http://books.google.com/books/content?id=7fhW6PDYklgC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 25,
+        "fields": {
+            "title": "Stephen King's Danse Macabre",
+            "author": 10,
+            "publication_year": 1982,
+            "ISBN": "845-042cf5626118e",
+            "image": "http://books.google.com/books/content?id=3YxhAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 24,
+        "fields": {
+            "first_name": "Kelley",
+            "last_name": "Armstrong"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 26,
+        "fields": {
+            "title": "Bitten",
+            "author": 24,
+            "publication_year": 2001,
+            "ISBN": "845-bbc82a29c9446",
+            "image": "http://books.google.com/books/content?id=8khaAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 25,
+        "fields": {
+            "first_name": "Bram",
+            "last_name": "Stoker"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 27,
+        "fields": {
+            "title": "Dracula",
+            "author": 25,
+            "publication_year": 1997,
+            "ISBN": "9780751370706",
+            "image": "http://books.google.com/books/content?id=aCtQPgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 28,
+        "fields": {
+            "title": "The Green Mile",
+            "author": 10,
+            "publication_year": 1996,
+            "ISBN": "845-d432f35b69608",
+            "image": "image.png"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 29,
+        "fields": {
+            "title": "Misery",
+            "author": 10,
+            "publication_year": 1987,
+            "ISBN": "845-d35734933e09d",
+            "image": "http://books.google.com/books/content?id=KbMhAQAAIAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 30,
+        "fields": {
+            "title": "The Waste Lands",
+            "author": 10,
+            "publication_year": 1993,
+            "ISBN": "9780451173317",
+            "image": "http://books.google.com/books/content?id=f36xnlfQyDwC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 31,
+        "fields": {
+            "title": "Christine",
+            "author": 10,
+            "publication_year": 1983,
+            "ISBN": "9780451160447",
+            "image": "http://books.google.com/books/content?id=DdHRpPUi5LsC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 26,
+        "fields": {
+            "first_name": "Rhiannon",
+            "last_name": "Frater"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 32,
+        "fields": {
+            "title": "As the World Dies Untold Tales Volume 1",
+            "author": 26,
+            "publication_year": 2011,
+            "ISBN": "9781441440464",
+            "image": "http://books.google.com/books/content?id=euPwn7HQ1CsC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 27,
+        "fields": {
+            "first_name": "Nancy",
+            "last_name": "Holder"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 33,
+        "fields": {
+            "title": "On Fire",
+            "author": 27,
+            "publication_year": 2012,
+            "ISBN": "9781451674477",
+            "image": "http://books.google.com/books/content?id=3Hr5ONX-2G8C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 34,
+        "fields": {
+            "title": "The Shining",
+            "author": 10,
+            "publication_year": 1977,
+            "ISBN": "9780385121675",
+            "image": "http://books.google.com/books/content?id=Wv9Rs7uC-mQC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 35,
+        "fields": {
+            "title": "Danse Macabre",
+            "author": 10,
+            "publication_year": 1985,
+            "ISBN": "9780425081105",
+            "image": "http://books.google.com/books/content?id=dVvUp21om9EC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 28,
+        "fields": {
+            "first_name": "Anthony",
+            "last_name": "Horowitz"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 36,
+        "fields": {
+            "title": "Raven's Gate",
+            "author": 28,
+            "publication_year": 2006,
+            "ISBN": "9780439859394",
+            "image": "http://books.google.com/books/content?id=mGvFuxVjfn0C&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 37,
+        "fields": {
+            "title": "Wolf Island",
+            "author": 7,
+            "publication_year": 2009,
+            "ISBN": "9780316048903",
+            "image": "http://books.google.com/books/content?id=64L6NAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 38,
+        "fields": {
+            "title": "Firestarter",
+            "author": 10,
+            "publication_year": 1993,
+            "ISBN": "9780751504392",
+            "image": "http://books.google.com/books/content?id=WjWOPwAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Author",
+        "pk": 29,
+        "fields": {
+            "first_name": "Stefan",
+            "last_name": "Spjut"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 39,
+        "fields": {
+            "title": "Stallo",
+            "author": 29,
+            "publication_year": 2015,
+            "ISBN": "9780571296781",
+            "image": "http://books.google.com/books/content?id=HV4tngEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
+    },
+    {
+        "model": "catalogue.Book",
+        "pk": 40,
+        "fields": {
+            "title": "Mr Mercedes",
+            "author": 10,
+            "publication_year": 2014,
+            "ISBN": "9781444788624",
+            "image": "http://books.google.com/books/content?id=FXxtvgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        }
     }
-  },
-  {
-    "model": "catalogue.Author",
-    "pk": 2,
-    "fields": {
-      "first_name": "Anne",
-      "last_name": "Rice"
-    }
-  },
-  {
-    "model": "catalogue.Author",
-    "pk": 3,
-    "fields": {
-      "first_name": "Bram",
-      "last_name": "Stoker"
-    }
-  },
-  {
-    "model": "catalogue.Author",
-    "pk": 4,
-    "fields": {
-      "first_name": "H.P.",
-      "last_name": "Lovecraft"
-    }
-  },
-  {
-    "model": "catalogue.Author",
-    "pk": 5,
-    "fields": {
-      "first_name": "Mary",
-      "last_name": "Shelley"
-    }
-  },
-  {
-    "model": "catalogue.Book",
-    "pk": 1,
-    "fields": {
-      "title": "It",
-      "author": 1,
-      "publication_year": 1986,
-      "ISBN": "978-0450411434"
-    }
-  },
-  {
-    "model": "catalogue.Book",
-    "pk": 2,
-    "fields": {
-      "title": "Interview with the Vampire",
-      "author": 2,
-      "publication_year": 1976,
-      "ISBN": "978-0345409645"
-    }
-  },
-  {
-    "model": "catalogue.Book",
-    "pk": 3,
-    "fields": {
-      "title": "Dracula",
-      "author": 3,
-      "publication_year": 1897,
-      "ISBN": "978-0486454016"
-    }
-  },
-  {
-    "model": "catalogue.Book",
-    "pk": 4,
-    "fields": {
-      "title": "The Call of Cthulhu",
-      "author": 4,
-      "publication_year": 1928,
-      "ISBN": "978-1505222837"
-    }
-  },
-  {
-    "model": "catalogue.Book",
-    "pk": 5,
-    "fields": {
-      "title": "Frankenstein",
-      "author": 5,
-      "publication_year": 1818,
-      "ISBN": "978-0486282114"
-    }
-  }
 ]
