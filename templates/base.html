@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>Spooky Books</title>
+  </head>
+  <body>
+    <header>
+      <a href="{% url 'catalogue_home' %}">
+        <section>
+          <h1>Spooky</h1>
+          <img class="logo" src="{% static 'images/logo.png' %}" alt="logo" />
+          <h1>Books</h1>
+        </section>
+      </a>
+      <nav>
+        <ul>
+          <li>
+            <a href="{% url 'books_list' %}">Spooky Books</a>
+          </li>
+          <li>
+            <a href="{% url 'books_new' %}">Add Book</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    {% block content %} {% endblock %}
+  </body>
+</html>

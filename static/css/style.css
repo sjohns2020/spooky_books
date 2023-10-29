@@ -1,0 +1,93 @@
+/* style.css */
+body {
+  background-color: #2b2b2b; /* dark background */
+  color: #e3e3e3; /* light text */
+  font-family: 'Trebuchet MS', sans-serif; /* Choose a spooky font if you prefer */
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 3em;
+  background-color: #ff751a; /* Halloween orange */
+}
+
+header a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo {
+  max-width: 5em;
+}
+
+nav ul {
+  list-style: none;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 15px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+}
+
+section {
+  padding: 20px 5%;
+}
+
+h1,
+h2 {
+  color: #ff751a;
+}
+
+a {
+  color: #ff751a;
+  text-decoration: none;
+  transform: scale(0.9);
+  transition: transform 0.3s ease-in-out;
+  display: inline-block;
+}
+
+a:hover {
+  transform: scale(1.1);
+}
+
+.spooky-button {
+  background-color: #ff751a;
+  color: #2b2b2b;
+  padding: 10px 20px;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.spooky-button:hover {
+  background-color: #e64500;
+}
+
+.button-spooky {
+  background-color: #ff751a; /* Halloween orange */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.button-spooky:hover {
+  background-color: #e64500; /* Darker Halloween orange */
+  color: white;
+}
