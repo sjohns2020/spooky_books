@@ -1,14 +1,56 @@
 {% extends 'base.html' %} {% block content %}
 
 <h1>Book Catalogue</h1>
-<ul class="book-list">
-  {% for book in books %}
-  <li>
-    <a class="book-card" href="{% url 'books_show' book.id %}">
-      <img src="{{book.image}}" alt="{{book.image}}" />
-    </a>
-  </li>
-  {% endfor %}
-</ul>
+
+<!-- Search Form -->
+<div class="search-form">
+  <form method="get" action="{% url 'books_list' %}">
+    <div class="form-row">
+      <label for="title">Title:</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        value="{{ request.GET.title|default:'' }}"
+      />
+    </div>
+    <div class="form-row">
+      <label for="author">Author:</label>
+      <input
+        type="text"
+        id="author"
+        name="author"
+        value="{{ request.GET.author|default:'' }}"
+      />
+    </div>
+    <div class="form-row">
+      <label for="ISBN">ISBN:</label>
+      <input
+        type="text"
+        id="ISBN"
+        name="ISBN"
+        value="{{ request.GET.ISBN|default:'' }}"
+      />
+    </div>
+    <div class="form-row">
+      <input type="submit" value="Search" class="button-spooky" />
+    </div>
+  </form>
+</div>
+
+<!-- Book List -->
+<div class="book-catalogue">
+  <ul class="book-list">
+    {% for book in books %}
+    <li>
+      <a class="book-card" href="{% url 'books_show' book.id %}">
+        <div class="book-image">
+          <img src="{{ book.image }}" alt="{{ book.title }}" />
+        </div>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 
 {% endblock %}

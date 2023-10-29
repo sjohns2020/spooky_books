@@ -1,7 +1,18 @@
 {% extends 'base.html' %} {% block content %}
 <h1>Edit book: {{ book.title }}</h1>
-<form method="post" novalidate>
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit">Save changes</button>
-</form>
+<div class="form-container">
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <div class="form-fields">
+      {% for field in form %}
+      <div class="form-row">
+        {{ field.errors }} {{ field.label_tag }} {{ field }}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="submit-row">
+      <button type="submit" class="button-spooky">Save changes</button>
+    </div>
+  </form>
+</div>
 {% endblock %}
