@@ -1,17 +1,34 @@
 {% extends 'base.html' %} {% block content %}
 
-<h2>{{ book.title }}</h2>
-<p>{{ book.publication_year }}</p>
-<p>Written by {{ book.author.first_name }} {{ book.author.last_name }}</p>
-<img src="{{book.image}}" alt="{{book.image}}" />
-<section>
-  <form action="{% url 'books_edit' book.id %}" method="GET">
-    <button type="submit" class="button-spooky">Edit</button>
-  </form>
-  <form action="{% url 'books_delete' book.id %}" method="POST">
-    {% csrf_token %}
-    <button type="submit" class="button-spooky">Delete</button>
-  </form>
-</section>
+<main class="book-details">
+  <h2>{{ book.title }}</h2>
+  <div class="book-metadata">
+    <p><strong>Publication Year:</strong> {{ book.publication_year }}</p>
+    <p>
+      <strong>Author:</strong> {{ book.author.first_name }}
+      {{book.author.last_name }}
+    </p>
+  </div>
+  <div class="book-image-container">
+    <img
+      src="{{ book.image }}"
+      alt="Cover image for {{ book.title }}"
+      class="book-cover"
+    />
+  </div>
+  <section class="book-actions">
+    <form action="{% url 'books_edit' book.id %}" method="GET">
+      <button type="submit" class="button-spooky">Edit</button>
+    </form>
+    <form
+      action="{% url 'books_delete' book.id %}"
+      method="POST"
+      onsubmit="return confirm('Are you sure you want to delete this book?');"
+    >
+      {% csrf_token %}
+      <button type="submit" class="button-spooky">Delete</button>
+    </form>
+  </section>
+</main>
 
 {% endblock %}

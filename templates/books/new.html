@@ -1,9 +1,18 @@
 {% extends 'base.html' %} {% block content %}
-
 <h1>Create a new book</h1>
-<form method="post" novalidate>
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit">Save new book</button>
-</form>
-
+<div class="form-container">
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <div class="form-fields">
+      {% for field in form %}
+      <div class="form-row">
+        {{ field.errors }} {{ field.label_tag }} {{ field }}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="submit-row">
+      <button type="submit" class="button-spooky">Save new book</button>
+    </div>
+  </form>
+</div>
 {% endblock %}
