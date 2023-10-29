@@ -3,7 +3,7 @@
 <section>
   <h1>Book Catalogue</h1>
   {% for book in books %}
-  <a href="{% url 'books_details' %}">
+  <a href="{% url 'books_show' book.id %}">
     <h2>{{ book.title }}</h2>
 
     <p>{{ book.publication_year }}</p>
