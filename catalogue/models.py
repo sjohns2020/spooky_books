@@ -16,6 +16,10 @@ class Book(models.Model):
     author = models.ForeignKey(Author, related_name="books", on_delete=models.CASCADE)
     publication_year = models.IntegerField()
     ISBN = models.CharField(max_length=20, unique=True)
+    image = models.CharField(
+        max_length=255,
+        default="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg",
+    )
 
     def __str__(self):
         return self.title

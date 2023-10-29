@@ -1,15 +1,14 @@
 {% extends 'base.html' %} {% block content %}
 
-<section>
-  <h1>Book Catalogue</h1>
+<h1>Book Catalogue</h1>
+<ul class="book-list">
   {% for book in books %}
-  <a href="{% url 'books_show' book.id %}">
-    <h2>{{ book.title }}</h2>
-
-    <p>{{ book.publication_year }}</p>
-    <p>Written by {{ book.author.first_name }} {{ book.author.last_name }}</p>
-  </a>
+  <li>
+    <a class="book-card" href="{% url 'books_show' book.id %}">
+      <img src="{{book.image}}" alt="{{book.image}}" />
+    </a>
+  </li>
   {% endfor %}
-</section>
+</ul>
 
 {% endblock %}

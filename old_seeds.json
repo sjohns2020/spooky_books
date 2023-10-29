@@ -1,0 +1,97 @@
+[
+  {
+    "model": "catalogue.Author",
+    "pk": 1,
+    "fields": {
+      "first_name": "Stephen",
+      "last_name": "King"
+    }
+  },
+  {
+    "model": "catalogue.Author",
+    "pk": 2,
+    "fields": {
+      "first_name": "Anne",
+      "last_name": "Rice"
+    }
+  },
+  {
+    "model": "catalogue.Author",
+    "pk": 3,
+    "fields": {
+      "first_name": "Bram",
+      "last_name": "Stoker"
+    }
+  },
+  {
+    "model": "catalogue.Author",
+    "pk": 4,
+    "fields": {
+      "first_name": "H.P.",
+      "last_name": "Lovecraft"
+    }
+  },
+  {
+    "model": "catalogue.Author",
+    "pk": 5,
+    "fields": {
+      "first_name": "Mary",
+      "last_name": "Shelley"
+    }
+  },
+  {
+    "model": "catalogue.Book",
+    "pk": 1,
+    "fields": {
+      "title": "It",
+      "author": 1,
+      "publication_year": 1986,
+      "ISBN": "978-0450411434",
+      "image": "image.png"
+    }
+  },
+  {
+    "model": "catalogue.Book",
+    "pk": 2,
+    "fields": {
+      "title": "Interview with the Vampire",
+      "author": 2,
+      "publication_year": 1976,
+      "ISBN": "978-0345409645",
+      "image": "image.png"
+    }
+  },
+  {
+    "model": "catalogue.Book",
+    "pk": 3,
+    "fields": {
+      "title": "Dracula",
+      "author": 3,
+      "publication_year": 1897,
+      "ISBN": "978-0486454016",
+      "image": "image.png"
+    }
+  },
+  {
+    "model": "catalogue.Book",
+    "pk": 4,
+    "fields": {
+      "title": "The Call of Cthulhu",
+      "author": 4,
+      "publication_year": 1928,
+      "ISBN": "978-1505222837",
+      "image": "image.png"
+    }
+  },
+  {
+    "model": "catalogue.Book",
+    "pk": 5,
+    "fields": {
+      "title": "Frankenstein",
+      "author": 5,
+      "publication_year": 1818,
+      "ISBN": "978-0486282114",
+      "image": "image.png"
+    }
+  }
+]
