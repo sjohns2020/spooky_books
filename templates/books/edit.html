@@ -1,7 +1,9 @@
 {% extends 'base.html' %} {% block content %}
-
 <section>
-  <h1>Edit form</h1>
+  <h1>Edit book: {{ book.title }}</h1>
+  <form method="post" novalidate>
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit">Save changes</button>
+  </form>
 </section>
-
 {% endblock %}
