@@ -12,7 +12,7 @@ Create a Library Catalogue System with Django that holds a list of halloween the
   - title
   - author (one to many relationship)
   - publication year
-  - ISBN which will be its id
+  - ISBN
   - image
 
 - An Author should have:
@@ -112,6 +112,8 @@ Once the app is running you have view the [API Documentation](http://localhost:8
 ![book_and_author_class_and_object_diagrams](./images/diagrams.png)
 
 3. Used timeboxing to plan my time frame for building and researching what I needed.
+
+<br/><br/>
 
 ### Project Setup
 
@@ -454,3 +456,5 @@ urlpatterns = [
 
 See Finished Documentation [here](http://localhost:8000/swagger/)
 see [Tutorial](https://episyche.com/blog/how-to-create-django-api-documentation-using-swagger)
+
+![Logo](./images/logo.png)
