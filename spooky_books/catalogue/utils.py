@@ -36,6 +36,7 @@ def get_isbn(title, author):
 import requests
 
 
+# Get year from Google Books API
 def get_publication_year(title, author):
     base_url = "https://www.googleapis.com/books/v1/volumes"
     params = {
@@ -60,6 +61,7 @@ def get_publication_year(title, author):
     return None
 
 
+# Get image from Google Books API
 def get_thumbnail_image(title, author):
     base_url = "https://www.googleapis.com/books/v1/volumes"
     params = {

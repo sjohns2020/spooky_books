@@ -5,6 +5,7 @@ from drf_yasg.views import get_schema_view
 from rest_framework_swagger.views import get_swagger_view
 from drf_yasg import openapi
 
+# Required by Swagger to create API documentation
 schema_view = get_schema_view(
     openapi.Info(
         title="Spooky Books",
@@ -20,10 +21,15 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     # API ROUTES
+    # api/books/ Route - View All and Create
     path("books/", views.BookList.as_view(), name="api_books_list"),
+    # api/books/<id> Route - View One, Update, Delete
     path("books/<int:pk>/", views.BookDetail.as_view(), name="api_books_detail"),
+    # api/authors/ Route - View All and Create
     path("authors/", views.AuthorList.as_view(), name="api_authors_list"),
+    # api/authors/<id> Route - View One, Update, Delete
     path("authors/<int:pk>/", views.AuthorDetail.as_view(), name="api_authors_detail"),
+    # Routes for API Documentation with Swagger
     re_path(
         r"^swagger(?P<format>\.json|\.yaml)$",
         schema_view.without_ui(cache_timeout=0),

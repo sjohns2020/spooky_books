@@ -7,6 +7,7 @@ from catalogue.models import Book, Author
 # Create your tests here.
 
 
+# Tests for DRF API routes.
 class BookTests(APITestCase):
     def setUp(self):
         # Set up data for the whole TestCase
