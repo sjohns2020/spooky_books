@@ -54,12 +54,19 @@ Create a Library Catalogue System with Django that holds a list of halloween the
 
 1. Clone this repo.
 
+2. Create a virtual environment.
+
+```sh
+python3 -m venv .env
+source .env/bin/activate
+```
+
 2. Install from requirements.
 
 ```sh
 # Terminal
 
-pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 ```
 
 3. Create Postgres database and load server. Ensure you have postreSQL and psycopg2 driver installed.
@@ -68,7 +75,7 @@ pip install -r requirements.txt
 # Terminal
 
 createdb spooky_books
-python3 manage.py loaddata seeds
+python3 manage.py loaddata seeds.json
 python3 manage.py runserver
 ```
 
@@ -91,7 +98,7 @@ Once the app is running you have view the [API Documentation](http://localhost:8
 - Integrated a postgres database.
 - Made Regular commits and worked on features in branches.
 - Used TDD and wrote up unit tests for models and views and API tests for api views.
-- implemented Filtering of books by title, author name and isbn.
+- Implemented Filtering of books by title, author name and isbn.
 - Built a full stack Django catalogue system following RESTfull routing conventions to ensure the system was easy to understand by other developers, maintainable and scalable.
 - Added DRF and build the API in a separate app to be tested and treated as a separate concern.
 - Used swagger and open AI to create API documentation.
@@ -103,6 +110,8 @@ Once the app is running you have view the [API Documentation](http://localhost:8
 2. Created class and object diagrams.
 
 ![book_and_author_class_and_object_diagrams](./images/diagrams.png)
+
+3. Used timeboxing to plan my time frame for building and researching what I needed.
 
 ### Project Setup
 
