@@ -1,15 +1,16 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required, permission_required
+from django.utils import timezone
 from .models import *
 from .forms import NewForm, EditForm
 from .utils import *
+from django.db.models import Q
 
 # Create your views here.
 
 
-from django.db.models import Q
-
-
 # INDEX
+@login_required
 def index(request):
     # Handle Filter queries for title, author and ISBN
     title_query = request.GET.get("title", "")
@@ -43,12 +44,14 @@ def index(request):
 
 
 # SHOW
+@login_required
 def show(request, id):
     book = get_object_or_404(Book, pk=id)
     return render(request, "books/show.html", {"book": book})
 
 
 # New form only requires a Title and Author Name
+@login_required
 def new(request):
     if request.method == "POST":
         form = NewForm(request.POST)
@@ -79,6 +82,7 @@ def new(request):
 
 
 # EDIT
+@login_required
 def edit(request, id):
     book = get_object_or_404(Book, pk=id)
     if request.method == "POST":
@@ -92,7 +96,43 @@ def edit(request, id):
 
 
 # DELETE
+@login_required
 def delete(request, id):
     book = get_object_or_404(Book, pk=id)
     book.delete()
     return redirect("books_list")
+
+
+# Handler to check if book is available to checkout
+def book_available_for_checkout(book, user):
+    # Check if the book is already checked out by the user
+    if BookLoan.objects.filter(book=book, user=user, return_date__isnull=True).exists():
+        return False
+
+    # Check if the book is not overdue for return
+    today = timezone.now()
+    if BookLoan.objects.filter(book=book, return_date__lt=today).exists():
+        return False
+
+    return True
+
+
+@login_required
+@permission_required("poll.add_vote")
+def checkout_book(request, book_id):
+    book = Book.objects.get(pk=book_id)
+
+    # Check if the book is available for checkout
+    if not book_available_for_checkout(book):
+        # Handle unavailability, e.g., display a message or redirect
+        return redirect("unavailable_book")
+
+    # Calculate the due date (e.g., 14 days from the checkout date)
+    due_date = timezone.now() + timezone.timedelta(days=14)
+
+    # Create a new BookLoan instance
+    loan = BookLoan(user=request.user, book=book, due_date=due_date)
+    loan.save()
+
+    # Handle success, e.g., display a success message
+    return redirect("checkout_success")

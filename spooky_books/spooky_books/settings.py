@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "django_filters",  # Easier Filtering
     "rest_framework_swagger",  # AI to generate DRF API Documentation
     "drf_yasg",  # Creates UI for AI to generate DRF API Documentation
+    "accounts",  # App to manage User accounts
 ]
 
 MIDDLEWARE = [
@@ -90,6 +91,10 @@ TEMPLATES = [
 REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
 }
+
+# Required to redirect user after login
+LOGIN_REDIRECT_URL = "/books"
+
 
 WSGI_APPLICATION = "spooky_books.wsgi.application"
 
