@@ -496,5 +496,6 @@ Still to do:
 
 - Add permissions to API
 - Restrict permission on Views and Templates
+- Research permissions best practices
 
 ![Logo](./images/logo.png)
