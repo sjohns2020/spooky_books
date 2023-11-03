@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.auth.models import Permission
+
+# from django.contrib.auth.models import Permission
 
 
 # Create your models here.
@@ -14,8 +15,8 @@ class Author(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
-# Publication year and image can be None to help with adding a book
 class Book(models.Model):
+    # Book has One-to-Many relationship with an Author
     title = models.CharField(max_length=255)
     author = models.ForeignKey(Author, related_name="books", on_delete=models.CASCADE)
     publication_year = models.IntegerField(null=True, blank=True)
@@ -30,7 +31,7 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
-    # If image is None, assign the default value
+    # When a book is saved, If image is None, assign the default value
     def save(self, *args, **kwargs):
         if not self.image:
             self.image = "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
@@ -38,6 +39,7 @@ class Book(models.Model):
 
 
 class BookLoan(models.Model):
+    # Book has Many-to-Many relationship with an User
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     checkout_date = models.DateField(auto_now_add=True)

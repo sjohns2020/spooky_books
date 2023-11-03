@@ -16,11 +16,11 @@ def is_librarian(user):
 
 
 def is_customer(user):
-    return user.groups.filter(name__in=["Librarian"]).exists()
+    return user.groups.filter(name__in=["Customer"]).exists()
 
 
 def is_developer(user):
-    return user.groups.filter(name__in=["Librarian"]).exists()
+    return user.groups.filter(name__in=["Developer"]).exists()
 
 
 # INDEX
@@ -66,16 +66,16 @@ def show(request, id):
 
 # New form only requires a Title and Author Name
 @login_required
-@user_passes_test(is_librarian, is_developer)
+@user_passes_test(is_librarian)
 def new(request):
     if request.method == "POST":
+        print(request.POST)
         form = NewForm(request.POST)
         if form.is_valid():
             title = form.cleaned_data["title"]
             author = form.cleaned_data["author"]
             author_id = author.id  # Get the author's ID
-            # Use utils methods to fetch year, isbn and image
-            # From Google Books API
+            # Use utils methods to fetch year, isbn and image from Google Books API
             publication_year = get_publication_year(title, author)
             isbn = get_isbn(title, author)
             image = get_thumbnail_image(title, author)
@@ -98,7 +98,7 @@ def new(request):
 
 # EDIT
 @login_required
-@user_passes_test(is_librarian, is_developer)
+@user_passes_test(is_librarian)
 def edit(request, id):
     book = get_object_or_404(Book, pk=id)
     if request.method == "POST":
@@ -113,7 +113,7 @@ def edit(request, id):
 
 # DELETE
 @login_required
-@user_passes_test(is_librarian, is_developer)
+@user_passes_test(is_librarian)
 def delete(request, id):
     book = get_object_or_404(Book, pk=id)
     book.delete()
@@ -136,7 +136,7 @@ def book_available_for_checkout(book, user):
     return True
 
 
-@login_required
+# @login_required
 # @user_passes_test(is_customer)
 def checkout_book(request, id):
     book = get_object_or_404(Book, pk=id)
@@ -154,7 +154,7 @@ def checkout_book(request, id):
     return redirect("books_show", id=book.id)
 
 
-@login_required
+# @login_required
 # @user_passes_test(is_customer)
 def return_book(request, id):
     book = get_object_or_404(Book, pk=id)

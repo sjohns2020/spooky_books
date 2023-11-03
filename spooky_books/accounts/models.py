@@ -14,14 +14,17 @@ class UserProfile(models.Model):
         return self.user.username
 
     class Meta:
+        # There are 3 user Groups with different permissions.
+        # Customers -  Can only see books only they can checkout a book
+        # Librarians -  Can perform All CRUD on books and Authors and BookLoans
+        # Developers -  Can't view BookLoans or check books out but can do everything else
+
         permissions = [
             # For customer group
-            # Customers Can only see books and checkout a book
             ("customers_could_view_books", "Can view books"),
             ("customers_could_view_authors", "Can view authors"),
             ("customers_could_checkout_book", "Can checkout book"),
             # For librarian group
-            # Librarians can perform CRUD on books and Authors and see Loans
             ("librarians_can_view_books", "Can view books"),
             ("librarians_can_view_authors", "Can view authors"),
             ("librarians_can_add_books", "Can add books"),
@@ -34,5 +37,4 @@ class UserProfile(models.Model):
             ("librarians_can_add_bookloans", "Can add bookloans"),
             ("librarians_can_update_bookloans", "Can update bookloans"),
             ("librarians_can_delete_bookloans", "Can delete bookloans"),
-            # Developers can't see books or check books out but can do everything else
         ]
