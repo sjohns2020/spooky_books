@@ -487,6 +487,7 @@ I created an accounts app and created an UserProfile model with a one to one rel
 I didn't want to have to create groups manually using the admin panel so I created a python script to run programmatically using hte management command
 
 ```sh
+# Terminal
 python3 manage.py create_user_groups
 ```
 
