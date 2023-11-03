@@ -44,6 +44,15 @@
         />
       </div>
 
+      <div class="input-group">
+        <label for="role">Choose Role: </label>
+        <select name="role" id="role">
+          <option value="customer">Customer</option>
+          <option value="librarian">Librarian</option>
+          <option value="developer">Developer</option>
+        </select>
+      </div>
+
       <input type="submit" value="Register" class="button yellow" />
       <input type="hidden" name="next" value="{{ next }}" />
     </form>

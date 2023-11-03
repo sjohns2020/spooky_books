@@ -478,12 +478,14 @@ In my library I set up django authentication. I wanted to have two groups of use
 
 I created an accounts app and created an UserProfile model with a one to one relationship with a User and added the permissions.
 
+[creating permissions](https://medium.com/djangotube/django-roles-groups-and-permissions-introduction-a54d1070544)
+
 I didn't want to have to create groups manually using the admin panel so i cerated a python script to run programmatically using hte management command
 
 ```sh
 python3 manage.py create_user_groups
 ```
 
-This command creates my groups and assigns the relevant permissions.
+This command creates my groups and assigns the relevant permissions [creating custom management commands](https://docs.djangoproject.com/en/4.2/howto/custom-management-commands/)
 
 ![Logo](./images/logo.png)
