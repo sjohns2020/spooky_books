@@ -24,13 +24,29 @@
       </a>
       <nav>
         <ul>
+          {% if user.is_authenticated %}
           <li>
             <a href="{% url 'books_list' %}">Spooky Books</a>
           </li>
           <li>
             <a href="{% url 'books_new' %}">Add Book</a>
           </li>
+          {% endif %}
         </ul>
+      </nav>
+      <nav class="auth-nav">
+        {% if user.is_authenticated %}
+        <span
+          >Logged in as:
+          <span class="logged-in-username">{{ user.username }}</span></span
+        >
+        <span> | </span>
+        <a href="{% url 'accounts_logout' %}">Log out</a>
+        {% else %}
+        <a href="{% url 'accounts_login' %}">Log In</a>
+        <span> | </span>
+        <a href="{% url 'accounts_register' %}">Register</a>
+        {% endif %}
       </nav>
     </header>
     <main>{% block content %} {% endblock %}</main>

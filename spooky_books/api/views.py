@@ -29,3 +29,10 @@ class AuthorList(generics.ListCreateAPIView):
 class AuthorDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
+
+
+# from django.views.generic import ListView
+# class VoteListView(PermissionRequiredMixin, ListView):
+#     permission_required = 'can_add_update_delete_books'
+#     # Or multiple of permissions
+#     permission_required = ('can_add_update_delete_books', 'can_checkout_book')

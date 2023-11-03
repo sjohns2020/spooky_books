@@ -1,15 +1,30 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required, permission_required
+from django.utils import timezone
 from .models import *
-from .forms import NewForm, EditForm
+from .forms import *
 from .utils import *
+from django.db.models import Q
+from django.contrib.auth.decorators import user_passes_test
+
 
 # Create your views here.
 
 
-from django.db.models import Q
+def is_librarian(user):
+    return user.groups.filter(name__in=["Librarian"]).exists()
+
+
+def is_customer(user):
+    return user.groups.filter(name__in=["Librarian"]).exists()
+
+
+def is_developer(user):
+    return user.groups.filter(name__in=["Librarian"]).exists()
 
 
 # INDEX
+@login_required
 def index(request):
     # Handle Filter queries for title, author and ISBN
     title_query = request.GET.get("title", "")
@@ -43,12 +58,15 @@ def index(request):
 
 
 # SHOW
+@login_required
 def show(request, id):
     book = get_object_or_404(Book, pk=id)
     return render(request, "books/show.html", {"book": book})
 
 
 # New form only requires a Title and Author Name
+@login_required
+@user_passes_test(is_librarian, is_developer)
 def new(request):
     if request.method == "POST":
         form = NewForm(request.POST)
@@ -79,6 +97,8 @@ def new(request):
 
 
 # EDIT
+@login_required
+@user_passes_test(is_librarian, is_developer)
 def edit(request, id):
     book = get_object_or_404(Book, pk=id)
     if request.method == "POST":
@@ -92,7 +112,54 @@ def edit(request, id):
 
 
 # DELETE
+@login_required
+@user_passes_test(is_librarian, is_developer)
 def delete(request, id):
     book = get_object_or_404(Book, pk=id)
     book.delete()
-    return redirect("books_list")
+    return redirect("/books_list")
+
+
+# Handler to check if book is available to checkout
+def book_available_for_checkout(book, user):
+    # Check if the book is already checked out by the user
+    if BookLoan.objects.filter(book=book, returned=False).exclude(user=user).exists():
+        return False
+    if BookLoan.objects.filter(book=book, user=user, due_date__isnull=True).exists():
+        return False
+
+    # Check if the book is not overdue for return
+    today = timezone.now()
+    if BookLoan.objects.filter(book=book, due_date__gt=today).exists():
+        return False
+
+    return True
+
+
+@login_required
+# @user_passes_test(is_customer)
+def checkout_book(request, id):
+    book = get_object_or_404(Book, pk=id)
+    user = request.user
+
+    # Check if the book is available for checkout
+    if not book_available_for_checkout(book, user):
+        loan = BookLoan.objects.get(book=book, returned=False)
+        return render(request, "books/unavailable_book.html", loan=loan)
+
+    # Create a new BookLoan instance
+    BookLoan.objects.create(
+        user=user, book=book, due_date=timezone.now() + timezone.timedelta(days=14)
+    )
+    return redirect("books_show", id=book.id)
+
+
+@login_required
+# @user_passes_test(is_customer)
+def return_book(request, id):
+    book = get_object_or_404(Book, pk=id)
+    user = request.user
+
+    # Create a new BookLoan instance
+    BookLoan.objects.update(returned=True)
+    return redirect("books_show", id=book.id)

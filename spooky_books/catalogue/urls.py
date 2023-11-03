@@ -13,4 +13,6 @@ urlpatterns = [
     path("<int:id>/edit/", views.edit, name="books_edit"),
     # DELETE
     path("<int:id>/delete/", views.delete, name="books_delete"),
+    # Checkout Book
+    path("<int:id>/checkout/", views.checkout_book, name="books_checkout"),
 ]

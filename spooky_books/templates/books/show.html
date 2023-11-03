@@ -17,6 +17,9 @@
     />
   </div>
   <section class="book-actions">
+    <form action="{% url 'books_checkout' book.id %}" method="GET">
+      <button type="submit" class="button-spooky">Borrow</button>
+    </form>
     <form action="{% url 'books_edit' book.id %}" method="GET">
       <button type="submit" class="button-spooky">Edit</button>
     </form>

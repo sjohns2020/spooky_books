@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>This book is unavailable to Borrow</h1>
+
+<p>Its currently checked out</p>
+
+<p>{{loan.book.title}} will be available again {{loan.due_date}}</p>
+
+{% endblock %}

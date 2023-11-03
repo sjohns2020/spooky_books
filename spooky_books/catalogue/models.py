@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Permission
+
 
 # Create your models here.
 
@@ -32,3 +35,14 @@ class Book(models.Model):
         if not self.image:
             self.image = "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
         super().save(*args, **kwargs)
+
+
+class BookLoan(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    checkout_date = models.DateField(auto_now_add=True)
+    due_date = models.DateField()  # date for returning the book
+    returned = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.book.title}"

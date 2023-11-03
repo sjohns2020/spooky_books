@@ -24,5 +24,7 @@ urlpatterns = [
     path("books/", include("catalogue.urls")),
     # Django Rest Framework API
     path("api/", include("api.urls")),
+    # Accounts related Urls for login and register accounts
+    path("accounts/", include("accounts.urls")),
     path("admin/", admin.site.urls),
 ]
