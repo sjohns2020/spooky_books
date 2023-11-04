@@ -69,7 +69,6 @@ def show(request, id):
 @user_passes_test(is_librarian)
 def new(request):
     if request.method == "POST":
-        print(request.POST)
         form = NewForm(request.POST)
         if form.is_valid():
             title = form.cleaned_data["title"]

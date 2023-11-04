@@ -166,65 +166,86 @@ class ViewTestCase(TestCase):
         self.client.login(username="librarian", password="password")
         book_data = {
             "title": "Thinner",
-            "author": Author.objects.get(name="Stephen").id,
+            "author": Author.objects.get(first_name="Stephen").id,
         }
         response = self.client.post(reverse("books_new"), book_data)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         self.assertTrue(Book.objects.filter(title="Thinner").exists())
 
     def test_new_view__customer_cannot_create_book(self):
         self.client.login(username="customer", password="password")
         book_data = {
             "title": "Thinner",
-            "author": Author.objects.get(name="Stephen").id,
+            "author": Author.objects.get(first_name="Stephen").id,
         }
         response = self.client.post(reverse("books_new"), book_data)
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
         self.assertFalse(Book.objects.filter(title="Thinner").exists())
 
     def test_new_view__developer_cannot_create_book(self):
         self.client.login(username="developer", password="password")
         book_data = {
             "title": "Thinner",
-            "author": Author.objects.get(name="Stephen").id,
+            "author": Author.objects.get(first_name="Stephen").id,
         }
         response = self.client.post(reverse("books_new"), book_data)
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
         self.assertFalse(Book.objects.filter(title="Thinner").exists())
 
     # EDIT-View Test
     def test_edit_view__librarian_can_edit_book(self):
         self.client.login(username="librarian", password="password")
+        book_to_edit = Book.objects.get(title=self.book2.title)
+        author = Author.objects.get(id=book_to_edit.author.id)
         edit_data = {
             "title": "Updated Book Title",
+            "author": author.id,
+            "publication_year": 1985,
+            "ISBN": "9780007159208",
+            "image": "http://books.google.com/books/content?id=1YP-hfna5ewC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
         }
+
         response = self.client.post(
-            reverse("books_edit", args=(Book.objects.get(title=self.book2.title).id,)), edit_data
+            reverse("books_edit", args=[book_to_edit.id]), edit_data
         )
-        self.assertEqual(response.status_code, 200)
-        self.book2.refresh_from_db()
-        self.assertEqual(Book.objects.get(title=self.book2.title).title, "Updated Book Title")
+        self.assertEqual(response.status_code, 302)
+        updated_book = Book.objects.get(title="Updated Book Title")
+        self.assertEqual(updated_book.title, "Updated Book Title")
 
     def test_edit_view__customer_cannot_edit_book(self):
         self.client.login(username="customer", password="password")
+        book_to_edit = Book.objects.get(title=self.book2.title)
+        author = Author.objects.get(id=book_to_edit.author.id)
         edit_data = {
             "title": "Updated Book Title",
+            "author": author.id,
+            "publication_year": 1985,
+            "ISBN": "9780007159208",
+            "image": "http://books.google.com/books/content?id=1YP-hfna5ewC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
         }
+
         response = self.client.post(
-            reverse("books_edit", args=(Book.objects.get(title=self.book2.title).id,)), edit_data
+            reverse("books_edit", args=[book_to_edit.id]), edit_data
         )
-        self.assertEqual(response.status_code, 403)
-        self.book2.refresh_from_db()
-        self.assertNotEqual(Book.objects.get(title=Book.objects.get(title=self.book2.title).title)title, "Updated Book Title")
+        self.assertEqual(response.status_code, 302)
+        updated_book = Book.objects.get(ISBN="9780007159208")
+        self.assertNotEqual(updated_book.title, "Updated Book Title")
 
     def test_edit_view__developer_cannot_edit_book(self):
         self.client.login(username="developer", password="password")
+        book_to_edit = Book.objects.get(title=self.book2.title)
+        author = Author.objects.get(id=book_to_edit.author.id)
         edit_data = {
             "title": "Updated Book Title",
+            "author": author.id,
+            "publication_year": 1985,
+            "ISBN": "9780007159208",
+            "image": "http://books.google.com/books/content?id=1YP-hfna5ewC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
         }
+
         response = self.client.post(
-            reverse("books_edit", args=(Book.objects.get(title=self.book2.title).id,)), edit_data
+            reverse("books_edit", args=[book_to_edit.id]), edit_data
         )
-        self.assertEqual(response.status_code, 403)
-        self.book2.refresh_from_db()
-        self.assertNotEqual(Book.objects.get(title=self.book2).title, "Updated Book Title")
+        self.assertEqual(response.status_code, 302)
+        updated_book = Book.objects.get(ISBN="9780007159208")
+        self.assertNotEqual(updated_book.title, "Updated Book Title")
