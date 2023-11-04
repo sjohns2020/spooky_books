@@ -249,3 +249,89 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
         updated_book = Book.objects.get(ISBN="9780007159208")
         self.assertNotEqual(updated_book.title, "Updated Book Title")
+
+    # CHECKOUT BOOK view
+    def test_checkout_book_view__customer_can_checkout_book(self):
+        self.client.login(username="customer", password="password")
+        book_to_checkout = Book.objects.get(title=self.book2.title)
+
+        response = self.client.post(
+            reverse("books_checkout", args=[book_to_checkout.id])
+        )
+        self.assertEqual(response.status_code, 302)
+        bookLoan = BookLoan.objects.get(user=self.customer_user)
+        book_to_checkout_id = Book.objects.get(title=self.book2.title).id
+        self.assertEqual(bookLoan.book.id, book_to_checkout_id)
+
+    def test_checkout_book_view__librarian_cannot_checkout_book(self):
+        self.client.login(username="librarian", password="password")
+        book_to_checkout = Book.objects.get(title=self.book2.title)
+
+        response = self.client.post(
+            reverse("books_checkout", args=[book_to_checkout.id])
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(BookLoan.objects.filter(user=self.librarian_user).exists())
+
+    def test_checkout_book_view__developer_cannot_checkout_book(self):
+        self.client.login(username="developer", password="password")
+        book_to_checkout = Book.objects.get(title=self.book2.title)
+
+        response = self.client.post(
+            reverse("books_checkout", args=[book_to_checkout.id])
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(BookLoan.objects.filter(user=self.developer_user).exists())
+
+    # RETURN BOOK View
+    def test_return_book_view__customer_can_return_book(self):
+        self.client.login(username="customer", password="password")
+        # Checkout Book
+        book_to_checkout = Book.objects.get(title=self.book2.title)
+
+        response = self.client.post(
+            reverse("books_checkout", args=[book_to_checkout.id])
+        )
+
+        # Return Book
+        book_to_return = Book.objects.get(title=self.book2.title)
+        response = self.client.post(reverse("books_return", args=[book_to_return.id]))
+        self.assertEqual(response.status_code, 302)
+        bookLoan = BookLoan.objects.get(user=self.customer_user)
+        self.assertTrue(bookLoan.returned)
+
+    def test_return_book_view__librarian_cannot_return_book(self):
+        self.client.login(username="customer", password="password")
+        # Checkout Book
+        book_to_checkout = Book.objects.get(title=self.book2.title)
+
+        response = self.client.post(
+            reverse("books_checkout", args=[book_to_checkout.id])
+        )
+        self.client.logout()
+        self.client.login(username="librarian", password="password")
+
+        # Return Book
+        book_to_return = Book.objects.get(title=self.book2.title)
+        response = self.client.post(reverse("books_return", args=[book_to_return.id]))
+        self.assertEqual(response.status_code, 302)
+        bookLoan = BookLoan.objects.get(user=self.customer_user)
+        self.assertFalse(bookLoan.returned)
+
+    def test_return_book_view__developer_cannot_return_book(self):
+        self.client.login(username="customer", password="password")
+        # Checkout Book
+        book_to_checkout = Book.objects.get(title=self.book2.title)
+
+        response = self.client.post(
+            reverse("books_checkout", args=[book_to_checkout.id])
+        )
+        self.client.logout()
+        self.client.login(username="developer", password="password")
+
+        # Return Book
+        book_to_return = Book.objects.get(title=self.book2.title)
+        response = self.client.post(reverse("books_return", args=[book_to_return.id]))
+        self.assertEqual(response.status_code, 302)
+        bookLoan = BookLoan.objects.get(user=self.customer_user)
+        self.assertFalse(bookLoan.returned)

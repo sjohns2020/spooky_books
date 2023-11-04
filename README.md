@@ -46,6 +46,7 @@ In this Library Catalogue System a A Book has a one to many relationship with an
   - Only a librarians can manage BookLoans
   - Customers can only view books and checkout books
   - Developers are restricted from checking out books and managing sensitive BookLoan information.
+  - [Django Authentication](https://docs.djangoproject.com/en/3.2/topics/auth/default/)
 
 | Permission           | Customer | Librarian | Developer | SuperUser |
 | -------------------- | :------: | :-------: | :-------: | :-------: |
