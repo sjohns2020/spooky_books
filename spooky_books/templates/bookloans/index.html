@@ -1,0 +1,90 @@
+{% extends 'base.html' %} {% block content %}
+
+<!-- All Loans -->
+<h2>All Book Loans</h2>
+<div class="book-catalogue"></div>
+<ul class="loan-list">
+  {% for loan in all_loans %}
+  <li class="loan-card">
+    <div>
+      <p class="loan-title">Customer:</p>
+      <p>{{ loan.user.username }}</p>
+    </div>
+    <div>
+      <p class="loan-title">Book:</p>
+      <p>{{ loan.book.title }} by {{ loan.book.author.first_name }} {{ loan.book.author.last_name }}</p>
+    </div>
+    <div>
+      {% if loan.returned %}
+      <p class="loan-title">Returned</p>
+      {% else %}
+      <p class="loan-title">Due on: </p>
+      <p>{{ loan.due_date }}</p>
+      {% endif %}
+    </div>
+  </li>
+  {% empty %}
+    <li>No book loans found.</li>
+  {% endfor %}
+</ul>
+</div>
+
+<!-- Books Currently on Loan -->
+<h2>All Current Loans</h2>
+<div class="book-catalogue"></div>
+<ul class="loan-list">
+  {% for loan in current_loans %}
+  <li class="loan-card">
+    <div>
+      <p class="loan-title">Customer:</p>
+      <p>{{ loan.user.username }}</p>
+    </div>
+    <div>
+      <p class="loan-title">Book:</p>
+      <p>{{ loan.book.title }} by {{ loan.book.author.first_name }} {{ loan.book.author.last_name }}</p>
+    </div>
+    <div>
+      {% if loan.returned %}
+      <p class="loan-title">Returned</p>
+      {% else %}
+      <p class="loan-title">Due on:</p>
+      <p>{{ loan.due_date }}</p>
+      {% endif %}
+    </div>
+  </li>
+  {% empty %}
+  <li>No book loans found.</li>
+  {% endfor %}
+</ul>
+</div>
+
+<!-- All OverDue Books -->
+<h2>All OverDue Books</h2>
+<div class="book-catalogue"></div>
+<ul class="loan-list">
+  {% for loan in overdue_loans %}
+  <li class="loan-card">
+    <div>
+      <p class="loan-title">Customer:</p>
+      <p>{{ loan.user.username }}</p>
+    </div>
+    <div>
+      <p class="loan-title">Book:</p>
+      <p>{{ loan.book.title }} by {{ loan.book.author.first_name }} {{ loan.book.author.last_name }}</p>
+    </div>
+    <div>
+      {% if loan.returned %}
+      <p class="loan-title">Returned</p>
+      {% else %}
+      <p class="loan-title">Due on:</p>
+      <p>{{ loan.due_date }}</p>
+      {% endif %}
+    </div>
+  </li>
+  {% empty %}
+  <li>No book loans found.</li>
+  {% endfor %}
+</ul>
+</div>
+
+{% endblock %}

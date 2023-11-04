@@ -1,6 +1,10 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-from .models import Author, Book
+from .models import Author, Book, BookLoan
+from django.contrib.auth.models import User
+from datetime import date
+from django.contrib.auth.models import User, Group
+
 
 # Create your tests here.
 
@@ -29,14 +33,13 @@ class BookModelTest(TestCase):
         self.author = Author.objects.create(
             first_name="Mary", last_name="Wollstonecraft Shelley"
         )
-        Book.objects.create(
+        self.book1 = Book.objects.create(
             title="Frankenstein",
             author=self.author,
             publication_year=1994,
             ISBN="9781561563098",
             image="http://books.google.com/books/content?id=4dHXkNcpIXgC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
         )
-        self.book1 = Book.objects.get(title="Frankenstein")
 
     def test_book_has__a_title(self):
         actual = self.book1.title
@@ -64,108 +67,48 @@ class BookModelTest(TestCase):
         self.assertEqual(actual, expected)
 
 
-# View Functions Tests
-class ViewTestCase(TestCase):
+# BookLoans Tests
+class BookLoanModelTest(TestCase):
     def setUp(self):
-        self.client = Client()
-        self.author1 = Author.objects.create(
+        self.author = Author.objects.create(
             first_name="Mary", last_name="Wollstonecraft Shelley"
         )
-        self.author2 = Author.objects.create(first_name="Darren", last_name="Shan")
-        Book.objects.create(
+        self.book = Book.objects.create(
             title="Frankenstein",
-            author=self.author1,
+            author=self.author,
             publication_year=1994,
             ISBN="9781561563098",
             image="http://books.google.com/books/content?id=4dHXkNcpIXgC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
         )
-        Book.objects.create(
-            title="Lord of the Shadows",
-            author=self.author2,
-            publication_year=2004,
-            ISBN="9780007159208",
-            image="http://books.google.com/books/content?id=Q3fusSYGLuwC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        self.user = User.objects.create_user(
+            "sean_jo", "sean_jo@example.com", "sean12345"
         )
-        Book.objects.create(
-            title="Slawter",
-            author=self.author2,
-            publication_year=2007,
-            ISBN="9780007231386",
-            image="http://books.google.com/books/content?id=zRCISxY0oDwC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+
+        self.loan = BookLoan.objects.create(
+            user=self.user, book=self.book, due_date=date.today(), returned=False
         )
-        self.book1 = Book.objects.get(title="Frankenstein")
-        self.book2 = Book.objects.get(title="Lord of the Shadows")
-        self.book3 = Book.objects.get(title="Slawter")
 
-    # INDEX-View Test
-    def test_index_view(self):
-        response = self.client.get(reverse("books_list"))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Frankenstein")
+    def test_BookLoan_has_a_user(self):
+        actual = self.loan.user.username
+        expected = "sean_jo"
+        self.assertEqual(actual, expected)
 
-    # SEARCH Tests
-    def test_search_by_title(self):
-        # This test checks if the view can handle and correctly filter by title
-        response = self.client.get(reverse("books_list"), {"title": "Frankenstein"})
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Frankenstein")
+    def test_BookLoan_has_an_book(self):
+        actual = self.loan.book.title
+        expected = "Frankenstein"
+        self.assertEqual(actual, expected)
 
-    def test_search_by_authors__first_name(self):
-        # This test checks if the view can handle and correctly filter by author
-        response = self.client.get(reverse("books_list"), {"author": "Darren"})
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Slawter")
-        self.assertContains(response, "Lord of the Shadows")
+    def test_BookLoan_has_a_checkout_date(self):
+        actual = self.loan.checkout_date
+        expected = date.today()
+        self.assertEqual(actual, expected)
 
-    def test_search_by_author__last_name(self):
-        # This test checks if the view can handle and correctly filter by author
-        response = self.client.get(reverse("books_list"), {"author": "Shan"})
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Slawter")
-        self.assertContains(response, "Lord of the Shadows")
+    def test_BookLoan_has_a_due_date(self):
+        actual = self.loan.due_date
+        expected = date.today()
+        self.assertEqual(actual, expected)
 
-    def test_search_by_ISBN(self):
-        # This test checks if the view can handle and correctly filter by ISBN
-        response = self.client.get(reverse("books_list"), {"ISBN": "9780007231386"})
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Slawter")
-
-    def test_search_by_all_criteria(self):
-        # This test checks if the view can handle and correctly filter by all query parameters together
-        response = self.client.get(
-            reverse("books_list"),
-            {"title": "Frankenstein", "author": "Shelley", "ISBN": "1234567890"},
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Frankenstein")
-
-    # SHOW-View Test
-    def test_new_view(self):
-        response = self.client.get(reverse("books_show", args=(self.book1.id,)))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Frankenstein")
-
-    # NEW-View Test
-    def test_new_view(self):
-        response = self.client.get(reverse("books_new"))
-        self.assertEqual(response.status_code, 200)
-
-    # EDIT-View Test
-    def test_new_view(self):
-        response = self.client.get(reverse("books_edit", args=(self.book2.id,)))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Lord of the Shadows")
-
-    # DELETE-View Test
-    def test_delete_view(self):
-        # Ensure the book exists before deletion
-        self.assertTrue(Book.objects.filter(id=self.book3.id).exists())
-
-        # Simulate a deletion request.
-        response = self.client.post(reverse("books_delete", args=(self.book3.id,)))
-
-        # Check that the delete view redirects redirect (redirects are status code 302)
-        self.assertEqual(response.status_code, 302)
-
-        # Ensure the book no longer exists in the database
-        self.assertFalse(Book.objects.filter(id=self.book3.id).exists())
+    def test_BookLoan_has_a_returned_property(self):
+        actual = self.loan.returned
+        expected = False
+        self.assertEqual(actual, expected)

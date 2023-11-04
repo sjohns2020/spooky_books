@@ -2,46 +2,90 @@
 
 ### Brief
 
-Create a Library Catalogue System with Django that holds a list of halloween themed Books. A book and an Author have a one to many relationship. An author has many books but a book only has one author.
+Create a Library Catalogue System with Django that holds a list of halloween themed Books. A book and an Author have a one to many relationship. An author has many books but a book only has one author. There are 4 levels of user with differing permissions of data they can access; customers, librarians, developers and superusers.
 
 ### MVP
 
-- A Book should have:
+In this Library Catalogue System a A Book has a one to many relationship with an Author. An Author can have many Books. A Book can be loaned many times by a customer and Librarians have access to view and manage BookLoans. A BookLoan there for is the Join table between a User borrowing the book and Book.
 
-  - id
-  - title
-  - author (one to many relationship)
-  - publication year
-  - ISBN
-  - image
-
-- An Author should have:
+- An `Author` should have:
 
   - id
   - first name
   - last name
 
-- User requirements:
+- A `Book` should have:
 
-  - The user should be able to view a list of books and authors
-  - The user should be able to view one book
-  - The user should be able to create a book
-  - The user should be able to update a book
-  - The user should be able to delete a book
-  - The user should be able to search for books by title, author or ISBN.
+  - id
+  - title
+  - author (FK Author)
+  - publication year
+  - ISBN
+  - image
 
-- Considerations
+- A `BookLoan` should have:
 
-  - Error handling
-  - Test Driven Development - unittest + DRF API Testing
-  - Insomnia testing
-  - Creating documentation with AI
-  - This system should be able to be used in Full Stack environment and create Django Rest Framework API to be used by React front end.
-  - Use python requests library to fetch in book data from an external API or create a seeds file with data.
+  - id
+  - user (FK User)
+  - book (FK Book)
+  - checkout_date
+  - due_date
+  - returned (bool)
+
+- A `User` should have:
+  - id
+  - username
+  - password
 
 <br/>
 
-## Bugs and Learning
+### User Functions and Actions
+
+- There are 4 levels of user groups with different permissions; Customer, Librarian, Developer, Superuser.
+  - Only a SuperUser can manage Users
+  - Only a librarians can manage BookLoans
+  - Customers can only view books and checkout books
+  - Developers are restricted from checking out books and managing sensitive BookLoan information.
+  - [Django Authentication](https://docs.djangoproject.com/en/3.2/topics/auth/default/)
+
+| Permission           | Customer | Librarian | Developer | SuperUser |
+| -------------------- | :------: | :-------: | :-------: | :-------: |
+| Books                |          |           |           |           |
+| Can view books       |    ✓     |     ✓     |     ✓     |     ✓     |
+| Can checkout book    |    ✓     |     ✗     |     ✗     |     ✓     |
+| Can add books        |    ✗     |     ✓     |     ✓     |     ✓     |
+| Can update books     |    ✗     |     ✓     |     ✓     |     ✓     |
+| Can delete books     |    ✗     |     ✓     |     ✓     |     ✓     |
+| Authors              |          |           |           |           |
+| Can view authors     |    ✓     |     ✓     |     ✓     |     ✓     |
+| Can add authors      |    ✗     |     ✓     |     ✓     |     ✓     |
+| Can update authors   |    ✗     |     ✓     |     ✓     |     ✓     |
+| Can delete authors   |    ✗     |     ✓     |     ✓     |     ✓     |
+| BookLoans            |          |           |           |           |
+| Can view bookloans   |    ✗     |     ✓     |     ✗     |     ✓     |
+| Can add bookloans    |    ✗     |     ✓     |     ✗     |     ✓     |
+| Can update bookloans |    ✗     |     ✓     |     ✗     |     ✓     |
+| Can delete bookloans |    ✗     |     ✓     |     ✗     |     ✓     |
+| Users                |          |           |           |           |
+| Can view Users       |    ✗     |     x     |     ✗     |     ✓     |
+| Can add Users        |    ✗     |     x     |     ✗     |     ✓     |
+| Can update Users     |    ✗     |     x     |     ✗     |     ✓     |
+| Can delete Users     |    ✗     |     x     |     ✗     |     ✓     |
+
+<br/>
+
+### Considerations
+
+- Error handling
+- Test Driven Development - unittest + DRF API Testing
+- Insomnia testing
+- Creating documentation with AI
+- This system should be able to be used in Full Stack environment and create Django Rest Framework API to be used by React front end.
+- Use python requests library to fetch in book data from an external API or create a seeds file with data.
+
+<br/>
+
+### Bugs and Learning
 
 - Django unit testing framework creates a mock database each time the setup is run but grabbing objects by id doesn't work as the ids vary each run.
   - Solution: grab objects but another unique property or multiple properties.
@@ -57,6 +101,8 @@ Create a Library Catalogue System with Django that holds a list of halloween the
 2. Create a virtual environment.
 
 ```sh
+# Terminal
+
 python3 -m venv .env
 source .env/bin/activate
 ```
@@ -461,24 +507,24 @@ see [Tutorial](https://episyche.com/blog/how-to-create-django-api-documentation-
 
 In my library I set up django authentication. I wanted to have 3 groups of users with different permissions:
 
-| Permission           | Customer | Librarian | Developer |
-| -------------------- | :------: | :-------: | :-------: |
-| Books                |          |           |           |
-| Can view books       |    ✓     |     ✓     |     ✓     |
-| Can checkout book    |    ✓     |     ✗     |     ✗     |
-| Can add books        |    ✗     |     ✓     |     ✓     |
-| Can update books     |    ✗     |     ✓     |     ✓     |
-| Can delete books     |    ✗     |     ✓     |     ✓     |
-| Authors              |          |           |           |
-| Can view authors     |    ✓     |     ✓     |     ✓     |
-| Can add authors      |    ✗     |     ✓     |     ✓     |
-| Can update authors   |    ✗     |     ✓     |     ✓     |
-| Can delete authors   |    ✗     |     ✓     |     ✓     |
-| BookLoans            |          |           |           |
-| Can view bookloans   |    ✗     |     ✓     |     ✗     |
-| Can add bookloans    |    ✗     |     ✓     |     ✗     |
-| Can update bookloans |    ✗     |     ✓     |     ✗     |
-| Can delete bookloans |    ✗     |     ✓     |     ✗     |
+| Permission           | Customer | Librarian | Developer | SuperUser |
+| -------------------- | :------: | :-------: | :-------: | :-------: |
+| Books                |          |           |           |           |
+| Can view books       |    ✓     |     ✓     |     ✓     |     ✓     |
+| Can checkout book    |    ✓     |     ✗     |     ✗     |     ✓     |
+| Can add books        |    ✗     |     ✓     |     ✓     |     ✓     |
+| Can update books     |    ✗     |     ✓     |     ✓     |     ✓     |
+| Can delete books     |    ✗     |     ✓     |     ✓     |     ✓     |
+| Authors              |          |           |           |           |
+| Can view authors     |    ✓     |     ✓     |     ✓     |     ✓     |
+| Can add authors      |    ✗     |     ✓     |     ✓     |     ✓     |
+| Can update authors   |    ✗     |     ✓     |     ✓     |     ✓     |
+| Can delete authors   |    ✗     |     ✓     |     ✓     |     ✓     |
+| BookLoans            |          |           |           |           |
+| Can view bookloans   |    ✗     |     ✓     |     ✗     |     ✓     |
+| Can add bookloans    |    ✗     |     ✓     |     ✗     |     ✓     |
+| Can update bookloans |    ✗     |     ✓     |     ✗     |     ✓     |
+| Can delete bookloans |    ✗     |     ✓     |     ✗     |     ✓     |
 
 I created an accounts app and created an UserProfile model with a one to one relationship with a User and added the permissions.
 

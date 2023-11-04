@@ -10,17 +10,19 @@ from django.contrib.auth.decorators import user_passes_test
 
 # Create your views here.
 
+# @login_required, @permission_required, and @user_passes_test
+
 
 def is_librarian(user):
     return user.groups.filter(name__in=["Librarian"]).exists()
 
 
 def is_customer(user):
-    return user.groups.filter(name__in=["Librarian"]).exists()
+    return user.groups.filter(name__in=["Customer"]).exists()
 
 
 def is_developer(user):
-    return user.groups.filter(name__in=["Librarian"]).exists()
+    return user.groups.filter(name__in=["Developer"]).exists()
 
 
 # INDEX
@@ -66,7 +68,7 @@ def show(request, id):
 
 # New form only requires a Title and Author Name
 @login_required
-@user_passes_test(is_librarian, is_developer)
+@user_passes_test(is_librarian)
 def new(request):
     if request.method == "POST":
         form = NewForm(request.POST)
@@ -74,8 +76,7 @@ def new(request):
             title = form.cleaned_data["title"]
             author = form.cleaned_data["author"]
             author_id = author.id  # Get the author's ID
-            # Use utils methods to fetch year, isbn and image
-            # From Google Books API
+            # Use utils methods to fetch year, isbn and image from Google Books API
             publication_year = get_publication_year(title, author)
             isbn = get_isbn(title, author)
             image = get_thumbnail_image(title, author)
@@ -98,7 +99,7 @@ def new(request):
 
 # EDIT
 @login_required
-@user_passes_test(is_librarian, is_developer)
+@user_passes_test(is_librarian)
 def edit(request, id):
     book = get_object_or_404(Book, pk=id)
     if request.method == "POST":
@@ -113,7 +114,7 @@ def edit(request, id):
 
 # DELETE
 @login_required
-@user_passes_test(is_librarian, is_developer)
+@user_passes_test(is_librarian)
 def delete(request, id):
     book = get_object_or_404(Book, pk=id)
     book.delete()
@@ -132,34 +133,58 @@ def book_available_for_checkout(book, user):
     today = timezone.now()
     if BookLoan.objects.filter(book=book, due_date__gt=today).exists():
         return False
-
     return True
 
 
 @login_required
-# @user_passes_test(is_customer)
+@user_passes_test(is_customer)
 def checkout_book(request, id):
     book = get_object_or_404(Book, pk=id)
     user = request.user
 
-    # Check if the book is available for checkout
-    if not book_available_for_checkout(book, user):
-        loan = BookLoan.objects.get(book=book, returned=False)
-        return render(request, "books/unavailable_book.html", loan=loan)
+    try:
+        book.checkout(user)
+    except ValueError as e:
+        # If the book is already checked out, inform the user.
+        return render(request, "books/unavailable_book.html", {"error": str(e)})
 
-    # Create a new BookLoan instance
-    BookLoan.objects.create(
-        user=user, book=book, due_date=timezone.now() + timezone.timedelta(days=14)
-    )
     return redirect("books_show", id=book.id)
 
 
 @login_required
-# @user_passes_test(is_customer)
+@user_passes_test(is_customer)
 def return_book(request, id):
     book = get_object_or_404(Book, pk=id)
     user = request.user
 
-    # Create a new BookLoan instance
-    BookLoan.objects.update(returned=True)
+    # Fetch the specific BookLoan instance
+    loan = get_object_or_404(BookLoan, book=book, user=user, returned=False)
+    loan.return_book()
+
     return redirect("books_show", id=book.id)
+
+
+@login_required
+@user_passes_test(is_librarian)
+def loans(request):
+    all_loans = BookLoan.objects.all()
+
+    current_loans = BookLoan.get_all_current_loans()
+    print("current: ")
+    for loan in current_loans:
+        print(loan.__dict__)
+
+    overdue_loans = BookLoan.get_all_overdue_loans()
+    print("overdue: ")
+    for loan in overdue_loans:
+        print(loan.__dict__)
+
+    return render(
+        request,
+        "bookloans/index.html",
+        {
+            "all_loans": all_loans,
+            "current_loans": current_loans,
+            "overdue_loans": overdue_loans,
+        },
+    )

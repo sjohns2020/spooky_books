@@ -251,3 +251,24 @@ main {
 .book-actions form {
   margin: 0;
 }
+
+.loan-list {
+  display: flex;
+  flex-direction: column;
+  margin: 1em;
+  padding: 0.5em;
+  margin: auto;
+}
+
+.loan-card {
+  padding: 0.5em;
+  border: #ff751a solid 1px;
+}
+
+.loan-card div {
+  display: flex;
+}
+
+.loan-title {
+  width: 6em;
+}

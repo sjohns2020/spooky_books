@@ -28,6 +28,9 @@
           <li>
             <a href="{% url 'books_list' %}">Spooky Books</a>
           </li>
+          {% endif %}
+          <p>{{ user.group }}</p>
+          {% if user.profile.is_librarian %}
           <li>
             <a href="{% url 'books_new' %}">Add Book</a>
           </li>

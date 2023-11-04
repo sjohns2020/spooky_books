@@ -13,26 +13,11 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
-    class Meta:
-        permissions = [
-            # For customer group
-            # Customers Can only see books and checkout a book
-            ("customers_could_view_books", "Can view books"),
-            ("customers_could_view_authors", "Can view authors"),
-            ("customers_could_checkout_book", "Can checkout book"),
-            # For librarian group
-            # Librarians can perform CRUD on books and Authors and see Loans
-            ("librarians_can_view_books", "Can view books"),
-            ("librarians_can_view_authors", "Can view authors"),
-            ("librarians_can_add_books", "Can add books"),
-            ("librarians_can_update_books", "Can update books"),
-            ("librarians_can_delete_books", "Can delete books"),
-            ("librarians_can_add_authors", "Can add authors"),
-            ("librarians_can_update_authors", "Can update authors"),
-            ("librarians_can_delete_authors", "Can delete authors"),
-            ("librarians_can_view_bookloans", "Can view bookloans"),
-            ("librarians_can_add_bookloans", "Can add bookloans"),
-            ("librarians_can_update_bookloans", "Can update bookloans"),
-            ("librarians_can_delete_bookloans", "Can delete bookloans"),
-            # Developers can't see books or check books out but can do everything else
-        ]
+    def is_librarian(self):
+        return self.groups.filter(name="Librarian").exists()
+
+    def is_customer(self):
+        return self.groups.filter(name="Customer").exists()
+
+    def is_developer(self):
+        return self.groups.filter(name="Developer").exists()
