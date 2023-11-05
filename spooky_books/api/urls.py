@@ -21,14 +21,30 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     # API ROUTES
-    # api/books/ Route - View All and Create
+    # api/books/ Route - View All and Create Books
     path("books/", views.BookList.as_view(), name="api_books_list"),
-    # api/books/<id> Route - View One, Update, Delete
+    # api/books/<id> Route - View One, Update, Delete a Book
     path("books/<int:pk>/", views.BookDetail.as_view(), name="api_books_detail"),
-    # api/authors/ Route - View All and Create
+    # api/authors/ Route - View All and Create Authors
     path("authors/", views.AuthorList.as_view(), name="api_authors_list"),
-    # api/authors/<id> Route - View One, Update, Delete
+    # api/authors/<id> Route - View One, Update, Delete an Author
     path("authors/<int:pk>/", views.AuthorDetail.as_view(), name="api_authors_detail"),
+    # api/bookloans/ Route - View All and Create BookLoans
+    path("bookloans/", views.BookLoanList.as_view(), name="api_bookloans_list"),
+    # api/bookloans/<id> Route - View One, Update, Delete a BookLoans
+    path(
+        "bookloans/<int:pk>/",
+        views.BookLoanDetail.as_view(),
+        name="api_bookloans_detail",
+    ),
+    # Customer can checkout a book
+    path(
+        "books/<int:pk>/checkout/",
+        views.CheckoutBook.as_view(),
+        name="api_checkout_book",
+    ),
+    # Customer can Return a book
+    path("books/<int:pk>/return/", views.ReturnBook.as_view(), name="api_return_book"),
     # Routes for API Documentation with Swagger
     re_path(
         r"^swagger(?P<format>\.json|\.yaml)$",

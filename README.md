@@ -39,14 +39,18 @@ In this Library Catalogue System a A Book has a one to many relationship with an
 
 <br/>
 
-### User Functions and Actions
+### Features
 
-- There are 4 levels of user groups with different permissions; Customer, Librarian, Developer, Superuser.
-  - Only a SuperUser can manage Users
-  - Only a librarians can manage BookLoans
-  - Customers can only view books and checkout books
-  - Developers are restricted from checking out books and managing sensitive BookLoan information.
-  - [Django Authentication](https://docs.djangoproject.com/en/3.2/topics/auth/default/)
+A user should be able to perform all crud actions on a Book, Author and BookLoans. A user should also be able to checkout and return a book. There are 4 levels of user groups with different permissions; Customer, Librarian, Developer, Superuser.
+
+- Only `SuperUsers` can perform CRUD actions on Users
+- Only `Librarians` can perform CRUD actions on BookLoans
+- Only `Customers` can checkout and return books
+- `Customers` can only view books and checkout books
+- `Developers` are restricted from managing sensitive BookLoan information.
+- [Django Authentication](https://docs.djangoproject.com/en/3.2/topics/auth/default/)
+
+### Features and Permissions
 
 | Permission           | Customer | Librarian | Developer | SuperUser |
 | -------------------- | :------: | :-------: | :-------: | :-------: |
@@ -67,10 +71,10 @@ In this Library Catalogue System a A Book has a one to many relationship with an
 | Can update bookloans |    ✗     |     ✓     |     ✗     |     ✓     |
 | Can delete bookloans |    ✗     |     ✓     |     ✗     |     ✓     |
 | Users                |          |           |           |           |
-| Can view Users       |    ✗     |     x     |     ✗     |     ✓     |
-| Can add Users        |    ✗     |     x     |     ✗     |     ✓     |
-| Can update Users     |    ✗     |     x     |     ✗     |     ✓     |
-| Can delete Users     |    ✗     |     x     |     ✗     |     ✓     |
+| Can view Users       |    ✗     |     ✗     |     ✗     |     ✓     |
+| Can add Users        |    ✗     |     ✗     |     ✗     |     ✓     |
+| Can update Users     |    ✗     |     ✗     |     ✗     |     ✓     |
+| Can delete Users     |    ✗     |     ✗     |     ✗     |     ✓     |
 
 <br/>
 
@@ -129,11 +133,17 @@ python3 manage.py runserver
 
 ## API Documentation
 
-Once the app is running you have view the [API Documentation](http://localhost:8000/api/swagger/) generated using Swagger.
+Once you have the app running you can view the [API Documentation](http://localhost:8000/api/swagger/) generated using Swagger AI.
 
-![Api Documentation](./images/api_documentation.png)
+![Api_Books_Documentation](./images/API_books.png)
 
-<br/><br/>
+<br/>
+
+![Api_Authors_Documentation](./images/API_authors.png)
+
+<br/>
+
+![Api_Bookloans_Documentation](./images/API_bookloans.png)
 
 <br/><br/>
 

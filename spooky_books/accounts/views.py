@@ -15,6 +15,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()  # Create the user
+            UserProfile.objects.create(user=user)  # Create a UserProfile for the user
 
             # Determine the user's group based on your criteria
             selected_role = request.POST.get("role")
@@ -24,7 +25,7 @@ def register(request):
             elif selected_role == "librarian":
                 group = Group.objects.get(name="Librarian")
                 user.is_staff = True
-            else:
+            elif selected_role == "developer":
                 group = Group.objects.get(name="Developer")
                 user.is_staff = True
 
@@ -32,11 +33,12 @@ def register(request):
                 user.groups.add(group)  # Assign the user to the group
                 user.save()  # Save the user with updated is_staff status
 
-            # Continue with the rest of your registration logic
+            # Authenticate and login the user
             username = form.cleaned_data.get("username")
             raw_password = form.cleaned_data.get("password1")
             user = authenticate(username=username, password=raw_password)
-            login(request, user)
+            if user is not None:
+                login(request, user)
             return redirect("books_list")
     else:
         form = UserCreationForm()
