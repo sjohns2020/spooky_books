@@ -168,17 +168,8 @@ def return_book(request, id):
 @user_passes_test(is_librarian)
 def loans(request):
     all_loans = BookLoan.objects.all()
-
     current_loans = BookLoan.get_all_current_loans()
-    print("current: ")
-    for loan in current_loans:
-        print(loan.__dict__)
-
     overdue_loans = BookLoan.get_all_overdue_loans()
-    print("overdue: ")
-    for loan in overdue_loans:
-        print(loan.__dict__)
-
     return render(
         request,
         "bookloans/index.html",

@@ -95,19 +95,19 @@ class ViewTestCase(TestCase):
         self.assertTrue(Book.objects.filter(id=self.book3.id).exists())
 
     # INDEX-View Test
-    def test_index_view__customer_can_view(self):
+    def test_index_view__customer_can_view_books(self):
         self.client.login(username="customer", password="password")
         response = self.client.get(reverse("books_list"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Frankenstein")
 
-    def test_index_view__librarian_can_view(self):
+    def test_index_view__librarian_can_view_books(self):
         self.client.login(username="librarian", password="password")
         response = self.client.get(reverse("books_list"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Frankenstein")
 
-    def test_index_view__developer_can_view(self):
+    def test_index_view__developer_can_view_books(self):
         self.client.login(username="developer", password="password")
         response = self.client.get(reverse("books_list"))
         self.assertEqual(response.status_code, 200)
@@ -154,8 +154,8 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Frankenstein")
 
-    # SHOW-View Test
-    def test_new_view(self):
+    # Show View Test
+    def test_show_view(self):
         self.client.login(username="customer", password="password")
         response = self.client.get(reverse("books_show", args=(self.book1.id,)))
         self.assertEqual(response.status_code, 200)
