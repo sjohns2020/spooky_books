@@ -2,7 +2,11 @@
 
 ### Brief
 
-Create a Library Catalogue System with Django that holds a list of halloween themed Books. A book and an Author have a one to many relationship. An author has many books but a book only has one author. There are 4 levels of user with differing permissions of data they can access; customers, librarians, developers and superusers.
+### MVP
+
+Create a Library Catalogue System with Django that holds a list of halloween themed Books. A book and an Author have a one to many relationship. Users should be able to perform all CRUD Actions on Books and Authors and search for a Book by title, author or ISBN.
+
+A User should be able to authenticated have a many to many relationship with a book. There are 3 levels of user with differing permissions of data they can access; customers, librarians and developers. A Book can only be borrowed by a Customer. Only Librarians should be able to view books currently and historically borrowed. A BookLoan is the Join table between a User borrowing the book and Book.
 
 ### MVP
 
@@ -33,9 +37,20 @@ In this Library Catalogue System a A Book has a one to many relationship with an
   - returned (bool)
 
 - A `User` should have:
+
   - id
   - username
   - password
+
+- A `User` should be able to:
+  - Create a Book or Author
+  - View All Books and Authors
+  - View a Book or Author
+  - Delete a Book or Author
+  - Search for a Book by:
+    - Title
+    - Author Name
+    - ISBN
 
 <br/>
 

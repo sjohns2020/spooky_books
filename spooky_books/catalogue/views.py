@@ -32,8 +32,6 @@ def index(request):
     title_query = request.GET.get("title", "")
     author_query = request.GET.get("author", "")
     isbn_query = request.GET.get("ISBN", "")
-
-    # Get all Books
     books = Book.objects.all()
 
     # If a title query is provided, filter books by title
@@ -44,11 +42,6 @@ def index(request):
     # Allows user to query authors full name
     if author_query:
         books = books.filter(
-            # Q is a class that represents a query expression
-            # used to perform complex database lookups and
-            # filter operations. It allows you to build more
-            # complex queries by combining multiple conditions
-            # using logical operators like AND, OR, and NOT.
             Q(author__first_name__icontains=author_query)
             | Q(author__last_name__icontains=author_query)
         )
@@ -56,6 +49,20 @@ def index(request):
     # If an ISBN query is provided, filter books by ISBN
     if isbn_query:
         books = books.filter(ISBN__icontains=isbn_query)
+
+    # # To filter by all 3
+    # filter_map = {
+    #     "title": "title__icontains",
+    #     "author": "author__icontains",
+    #     "isbn": "isbn__icontains",
+    # }
+
+    # filters = {}
+    # for key, value in request.GET.items():
+    #     filter_key = filter_map[key]
+    #     filters[filter_key] = value
+
+    # books = Book.objects.filter(**filters)
     return render(request, "books/index.html", {"books": books})
 
 

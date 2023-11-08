@@ -42,6 +42,7 @@ class Command(BaseCommand):
         ]
 
         # Create the groups
+        # the _ is here because get_or_create return both the group object and a bool but we are ignoring the bool.
         customer_group, _ = Group.objects.get_or_create(name="Customer")
         librarian_group, _ = Group.objects.get_or_create(name="Librarian")
         developer_group, _ = Group.objects.get_or_create(name="Developer")

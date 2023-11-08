@@ -85,7 +85,8 @@ class BookLoanDetail(generics.RetrieveUpdateDestroyAPIView):
 
 # api/books/<int:pk>/checkout/ - Customer can checkout a book
 class CheckoutBook(APIView):
-    permission_classes = [IsAuthenticated]
+    # Only Customers chan checkout
+    permission_classes = [IsAuthenticated, IsCustomer]
 
     def post(self, request, pk, format=None):
         book = get_object_or_404(Book, pk=pk)
