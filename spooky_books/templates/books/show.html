@@ -17,9 +17,19 @@
     />
   </div>
   <section class="book-actions">
-    <form action="{% url 'books_checkout' book.id %}" method="GET">
-      <button type="submit" class="button-spooky">Borrow</button>
-    </form>
+    {% if user.is_authenticated %} {% if user.profile.is_customer %}
+    <div>
+      {% if book.is_checked_out %}
+      <button type="submit" class="button-spooky">Currently Unavailable</button>
+      {% else %}
+      <form action="{% url 'books_checkout' book.id %}" method="GET">
+        <button type="submit" class="button-spooky">Borrow</button>
+      </form>
+      {% endif %}
+    </div>
+    {% endif %} {% endif %}
+    <div>
+    {% if user.is_authenticated and user.profile.is_librarian  %}
     <form action="{% url 'books_edit' book.id %}" method="GET">
       <button type="submit" class="button-spooky">Edit</button>
     </form>
@@ -30,6 +40,8 @@
     >
       {% csrf_token %}
       <button type="submit" class="button-spooky">Delete</button>
+      {% endif %}
+    </div>
     </form>
   </section>
 </main>

@@ -125,7 +125,7 @@ def edit(request, id):
 def delete(request, id):
     book = get_object_or_404(Book, pk=id)
     book.delete()
-    return redirect("/books_list")
+    return redirect("books_list")
 
 
 # Handler to check if book is available to checkout
