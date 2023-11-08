@@ -8,6 +8,10 @@ from django.contrib.auth.models import User
 # User Profile Class with One to One Relationship with a User
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+
+    def __str__(self):
+        return self.user.username
+
     _is_librarian = None
     _is_customer = None
     _is_developer = None
@@ -29,7 +33,3 @@ class UserProfile(models.Model):
         if self._is_developer is None:
             self._is_developer = self.user.groups.filter(name="Developer").exists()
         return self._is_developer
-
-    # __str__ method determines how UserProfile will display in admin portal
-    def __str__(self):
-        return self.user.username
